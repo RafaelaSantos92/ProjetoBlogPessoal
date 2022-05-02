@@ -7,11 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -40,6 +43,10 @@ public class Postagem {
 	private LocalDateTime data;
 	
 	private String foto;
+	
+	@ManyToOne
+	@JsonIgnoreProperties
+	private Tema tema;
 
 	public long getId() {
 		return id;
