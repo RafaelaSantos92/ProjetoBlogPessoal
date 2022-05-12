@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import com.blogpessoal.blog.pessoal.model.*;
 
+@Service
 public class UserDetailsImpl implements UserDetails{
 
 private static final long serialVersionUID =1L;

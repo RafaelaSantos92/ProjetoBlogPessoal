@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.blogpessoal.blog.pessoal.model.Postagem;
 import com.blogpessoal.blog.pessoal.repository.PostagemRepository;
+import com.blogpessoal.blog.pessoal.repository.TemaRepository;
 
 @RestController
 @RequestMapping("/Postagens")
@@ -28,6 +31,9 @@ public class PostagensController {
 	
 	@Autowired
 	private PostagemRepository repository;
+	
+	@Autowired
+	private TemaRepository temaRe;
 
 	@GetMapping
 	public ResponseEntity<List<Postagem>> GetAll(){	
@@ -51,11 +57,13 @@ public class PostagensController {
 	
 	@PostMapping
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(repository.save(postagem));
+		if(temaRe.existsById(postagem.getTema().getId()))
+				return ResponseEntity.status(HttpStatus.CREATED)
+						.body(repository.save(postagem));
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		
 	}
-	
+		
 	@PutMapping
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
 		return repository.findById(postagem.getId())
@@ -65,10 +73,14 @@ public class PostagensController {
 				
 	}
 	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
-	}
+	public void delete(@PathVariable Long id) {
+	Optional<Postagem> postagem = repository.findById(id);
+	if(postagem.isEmpty())
+	throw new ResponseStatusException(HttpStatus.NOT_FOUND) ;
+	repository.deleteById(id); }
+
 	
 	
 }
