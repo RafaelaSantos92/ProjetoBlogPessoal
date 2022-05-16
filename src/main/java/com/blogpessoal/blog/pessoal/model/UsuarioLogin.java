@@ -3,7 +3,7 @@ package com.blogpessoal.blog.pessoal.model;
 public class UsuarioLogin {
 	
 	
-	private Long id;
+	private long id;
 	private String nome;
 	private String usuario;
 	private String senha;
@@ -11,7 +11,7 @@ public class UsuarioLogin {
 	private String tipo;
 	private String token;
 	
-		public UsuarioLogin(Long id, String nome, String usuario, String senha, String foto, String tipo, String token) {
+		public UsuarioLogin(long id, String nome, String usuario, String senha, String foto, String tipo, String token) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -28,10 +28,10 @@ public class UsuarioLogin {
 			super();
 		}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getNome() {

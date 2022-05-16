@@ -15,17 +15,20 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name = "tb_usuarios")
 public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 	
 	@NotNull(message = "O atributo nome é obrigatório")	
 	private String nome;
 	
+	@Schema(example = "email@email.com")
 	@NotNull(message = "O atributo usuário é obrigatório")
 	@Email(message = "O atributo usuário deve ser um e-mail válido!")
 	private String usuario;
@@ -50,7 +53,7 @@ public class Usuario {
 
 	
 	
-	public Usuario(Long id, String nome, String usuario, String senha, String foto,	String tipo) {
+	public Usuario(long id, String nome, String usuario, String senha, String foto,	String tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -68,11 +71,11 @@ public class Usuario {
 
 
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
